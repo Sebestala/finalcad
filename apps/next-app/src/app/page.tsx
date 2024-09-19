@@ -35,6 +35,7 @@ export default function Page(): JSX.Element {
             <Button
               onClick={() => {}}
               className="w-20 h-11 rounded-3xl bg-[#FF8029] hover:bg-[#FF8029] text-white"
+              ariaLabel="Log in"
             >
               Log in
             </Button>
