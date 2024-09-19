@@ -8,7 +8,9 @@
     "dist"
   ],
   "exports": {
-    "./styles.css": "./dist/index.css"
+    "./styles.css": "./dist/index.css",
+    "./TextInput": "./src/components/TextInput.tsx",
+    "./Button": "./src/components/Button.tsx"
   },
   "license": "MIT",
   "scripts": {
