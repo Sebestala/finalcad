@@ -3,11 +3,67 @@
 import { TextInput } from "@repo/ui/TextInput";
 import { Button } from "@repo/ui/Button";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/hooks/use-toast";
+
+interface Credentials {
+  login: string;
+  password: string;
+  token: string;
+}
 
 export default function Page(): JSX.Element {
-  const [email, setEmail] = useState("");
+  const router = useRouter();
+  const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [credentials, setCredentials] = useState<Credentials[]>([]);
+  const { toast } = useToast();
+
+  const getCredentials = async () => {
+    try {
+      const response = await fetch(`http://demo.wizzcad.com:8081/logins`);
+      if (response.ok) {
+        const data = await response.json();
+        setCredentials(data);
+      } else {
+        toast({
+          title: "Error",
+          description: "Fetch data has failed",
+        });
+      }
+    } catch (error) {
+      console.error("Fetch data has failed:", error);
+    }
+  };
+
+  const handleLogin = () => {
+    console.log(login, password);
+    console.log(credentials);
+    const matchingCredential = credentials.find(
+      (cred) => cred.login === login && cred.password === password
+    );
+    console.log(matchingCredential);
+    if (matchingCredential) {
+      localStorage.setItem("token", matchingCredential.token);
+      router.push("/list");
+      toast({
+        title: "Success",
+        description: "Connection successful",
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: "Login or password incorrect",
+        variant: "destructive",
+        className: "bg-red-500 text-white ",
+      });
+    }
+  };
+
+  useEffect(() => {
+    getCredentials();
+  }, []);
 
   return (
     <main>
@@ -23,8 +79,8 @@ export default function Page(): JSX.Element {
           <div className="flex flex-col gap-4 items-center">
             <TextInput
               placeholder="name@company-name.com"
-              value={email}
-              onChange={(value) => setEmail(value)}
+              value={login}
+              onChange={(value) => setLogin(value)}
             />
             <TextInput
               placeholder="Password"
@@ -33,7 +89,7 @@ export default function Page(): JSX.Element {
               onChange={(value) => setPassword(value)}
             />
             <Button
-              onClick={() => {}}
+              onClick={handleLogin}
               className="w-20 h-11 rounded-3xl bg-[#FF8029] hover:bg-[#FF8029] text-white"
               ariaLabel="Log in"
             >
