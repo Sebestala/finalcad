@@ -69,7 +69,7 @@ export default function ListPage(): JSX.Element {
   );
 
   return (
-    <div className="flex flex-col m-8 p-4 gap-10 ">
+    <main className="flex flex-col m-8 p-4 gap-10 ">
       <div className="flex flex-col ">
         <h1 className="text-2xl font-medium">Page title</h1>
         <p className="text-base font-normal text-[#848F9D]">
@@ -121,6 +121,7 @@ export default function ListPage(): JSX.Element {
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
           className="bg-[#FF8029] hover:bg-[#FF8029] w-24 text-sm text-white disabled:bg-gray-300"
+          aria-label="Previous page"
         >
           Previous
         </Button>
@@ -131,11 +132,12 @@ export default function ListPage(): JSX.Element {
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, pageCount))}
           disabled={currentPage === pageCount}
           className="bg-[#FF8029] hover:bg-[#FF8029] w-24 text-sm text-white disabled:bg-gray-300"
+          aria-label="Next page"
         >
           Next
         </Button>
       </div>
-    </div>
+    </main>
   );
 }
 
