@@ -5,7 +5,7 @@ import { Cell } from "@repo/ui/Cell";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-interface Status {
+export interface Status {
   color: string;
   enabled: boolean;
   id: string;
@@ -13,13 +13,15 @@ interface Status {
   num: number;
 }
 
-interface TableData {
+export interface TableData {
   id: string;
   name: string;
   template_name: string;
   status: Status;
   due_date: string;
   num: number;
+  phase_id: string;
+  created_by: string;
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -97,9 +99,12 @@ export default function ListPage(): JSX.Element {
         </li>
         {paginatedData.map((data) => (
           <Link
-            href={`/edl${data.num}`}
+            href={`/list/edl/${data.num}`}
             key={data.id}
             passHref
+            onClick={() => {
+              localStorage.setItem("currentEDLData", JSON.stringify(data));
+            }}
           >
             <RawData
               key={data.id}
