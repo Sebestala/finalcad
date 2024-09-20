@@ -38,12 +38,9 @@ export default function Page(): JSX.Element {
   };
 
   const handleLogin = () => {
-    console.log(login, password);
-    console.log(credentials);
     const matchingCredential = credentials.find(
       (cred) => cred.login === login && cred.password === password
     );
-    console.log(matchingCredential);
     if (matchingCredential) {
       localStorage.setItem("token", matchingCredential.token);
       router.push("/list");
