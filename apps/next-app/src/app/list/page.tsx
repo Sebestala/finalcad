@@ -3,6 +3,7 @@
 import { Button } from "@repo/ui/Button";
 import { Cell } from "@repo/ui/Cell";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Status {
   color: string;
@@ -18,6 +19,7 @@ interface TableData {
   template_name: string;
   status: Status;
   due_date: string;
+  num: number;
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -94,13 +96,19 @@ export default function ListPage(): JSX.Element {
           </div>
         </li>
         {paginatedData.map((data) => (
-          <RawData
+          <Link
+            href={`/edl${data.num}`}
             key={data.id}
-            name={data.name}
-            template_name={data.template_name}
-            status={data.status}
-            due_date={data.due_date}
-          />
+            passHref
+          >
+            <RawData
+              key={data.id}
+              name={data.name}
+              template_name={data.template_name}
+              status={data.status}
+              due_date={data.due_date}
+            />
+          </Link>
         ))}
       </ul>
       <div className="flex justify-center items-center mt-4 gap-4">
