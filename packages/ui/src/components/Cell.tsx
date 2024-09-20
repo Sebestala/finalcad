@@ -5,6 +5,17 @@ interface CellProps {
   colorText?: string;
 }
 
+/**
+ * Renders a customizable cell component for table-like structures.
+ *
+ * @param {CellProps} props - The properties for the Cell component.
+ * @returns {JSX.Element} The rendered Cell component.
+ *
+ * Features:
+ * - Optional bold text styling
+ * - Header cell styling option
+ * - Customizable text color
+ */
 export function Cell({
   label,
   isBold = false,

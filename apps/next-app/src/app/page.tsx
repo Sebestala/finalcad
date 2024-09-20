@@ -13,6 +13,16 @@ interface Credentials {
   token: string;
 }
 
+/**
+ * Renders the login page for the Finalcad application.
+ *
+ * @returns {JSX.Element} The rendered login page component.
+ *
+ * Features:
+ * - Fetches login credentials from an API
+ * - Handles user authentication
+ * - Redirects to list page on successful login
+ */
 export default function Page(): JSX.Element {
   const router = useRouter();
   const [login, setLogin] = useState("");

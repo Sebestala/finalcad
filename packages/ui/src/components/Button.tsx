@@ -8,6 +8,21 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
+/**
+ * A reusable Button component with customizable properties.
+ *
+ * @param {Object} props - The component props.
+ * @param {ReactNode} props.children - The content of the button.
+ * @param {Function} props.onClick - The click event handler.
+ * @param {string} [props.className] - Additional CSS classes.
+ * @param {string} [props.ariaLabel] - Aria label for accessibility.
+ * @param {boolean} [props.disabled] - Whether the button is disabled.
+ * @returns {JSX.Element} The rendered Button component.
+ *
+ * Features:
+ * - Customizable appearance through className prop
+ * - Disabled state support
+ */
 export function Button({
   children,
   onClick,

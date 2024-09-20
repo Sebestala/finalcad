@@ -26,6 +26,16 @@ export interface TableData {
 
 const ITEMS_PER_PAGE = 10;
 
+/**
+ * Renders the list page displaying paginated table data.
+ *
+ * @returns {JSX.Element} The rendered list page component.
+ *
+ * Features:
+ * - Fetches table data from an API using stored token
+ * - Displays data in a table format with clickable rows
+ * - Provides navigation between pages
+ */
 export default function ListPage(): JSX.Element {
   const [tableData, setTableData] = useState<TableData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);

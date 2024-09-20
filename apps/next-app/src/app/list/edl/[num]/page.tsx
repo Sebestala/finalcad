@@ -16,6 +16,16 @@ interface Member {
   last_name: string;
   email: string;
 }
+
+/**
+ * Renders the EDL (État des Lieux) details page.
+ *
+ * @returns {JSX.Element} The rendered EDL details page component.
+ *
+ * Features:
+ * - Fetches phase and creator data from API endpoints
+ * - Retrieves EDL data from local storage
+ */
 export default function EDLPage(): JSX.Element {
   const { num } = useParams();
   const [itemData, setItemData] = useState<TableData | null>(null);
