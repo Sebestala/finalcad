@@ -35,7 +35,6 @@ export default function EDLPage(): JSX.Element {
 
       if (response.ok) {
         const phases: Phase[] = await response.json();
-        console.log(phases);
         const phaseFetched = phases.find((p) => p.id === phaseId);
         if (phaseFetched) {
           setPhase(phaseFetched);
@@ -60,7 +59,6 @@ export default function EDLPage(): JSX.Element {
       if (response.ok) {
         const members: Member[] = await response.json();
         const member = members.find((p) => p.user_id === creatorId);
-        console.log(member);
         if (member) {
           setMember(member);
         }
@@ -75,70 +73,99 @@ export default function EDLPage(): JSX.Element {
     if (storedData) {
       const parsedData = JSON.parse(storedData) as TableData;
       setItemData(parsedData);
-      console.log(parsedData);
       fetchPhaseName(parsedData.phase_id);
       fetchCreator(parsedData.created_by);
     }
   }, []);
 
   return (
-    <div className="flex flex-col m-8 p-10 gap-4 bg-slate-50 rounded-2xl shadow-md">
+    <main className="flex flex-col m-8 p-10 gap-4 bg-slate-50 rounded-2xl shadow-md">
       <h1 className="text-2xl font-medium text-slate-700">Details EDL {num}</h1>
       <div className="flex flex-col gap-10">
-        <div className="flex flex-col gap-2">
-          <p className="flex w-full font-light text-lg text-slate-700/50">Phase</p>
-          <div className="grid grid-cols-2 gap-8 w-full">
-            <DataCard
-              label="Name"
-              value={phase?.name}
-            />
-            <DataCard
-              label="Order"
-              value={phase?.order}
-            />
-          </div>
+        <div className="flex">
+          <section
+            className="flex flex-col gap-2 w-full"
+            aria-labelledby="phase-heading"
+          >
+            <h2
+              id="phase-heading"
+              className="flex w-full font-light text-lg text-slate-700/50 sr-only"
+            >
+              Phase
+            </h2>
+            <div className="grid grid-cols-2 gap-8 w-full">
+              <DataCard
+                label="Name"
+                value={phase?.name}
+              />
+              <DataCard
+                label="Order"
+                value={phase?.order}
+              />
+            </div>
+          </section>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="flex w-full font-light text-lg text-slate-700/50">EDL</p>
-          <div className="grid grid-cols-2 gap-8 w-full">
-            <DataCard
-              label="Name"
-              value={itemData?.name}
-            />
-            <DataCard
-              label="Template Name"
-              value={itemData?.template_name}
-            />
-            <DataCard
-              label="Status"
-              value={itemData ? itemData.status.name : "N/A"}
-              className={`text-sm font-normal`}
-              style={{ color: itemData ? itemData.status.color : "#172134" }}
-            />
-            <DataCard
-              label="Due Date"
-              value={itemData?.due_date}
-            />
-          </div>
+        <div className="flex">
+          <section
+            className="flex flex-col gap-2 w-full"
+            aria-labelledby="edl-heading"
+          >
+            <h2
+              id="edl-heading"
+              className="flex w-full font-light text-lg text-slate-700/50 sr-only"
+            >
+              EDL
+            </h2>
+            <div className="grid grid-cols-2 gap-8 w-full">
+              <DataCard
+                label="Name"
+                value={itemData?.name}
+              />
+              <DataCard
+                label="Template Name"
+                value={itemData?.template_name}
+              />
+              <DataCard
+                label="Status"
+                value={itemData ? itemData.status.name : "N/A"}
+                className={`text-sm font-normal`}
+                style={{ color: itemData ? itemData.status.color : "#172134" }}
+              />
+              <DataCard
+                label="Due Date"
+                value={itemData?.due_date}
+              />
+            </div>
+          </section>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="flex w-full font-light text-lg text-slate-700/50">Creator</p>
-          <div className="grid grid-cols-2 gap-8 w-full">
-            <DataCard
-              label="First name"
-              value={member?.first_name}
-            />
-            <DataCard
-              label="Last name"
-              value={member?.last_name}
-            />
-            <DataCard
-              label="Email"
-              value={member?.email}
-            />
-          </div>
+        <div className="flex">
+          <section
+            className="flex flex-col gap-2 w-full"
+            aria-labelledby="creator-heading"
+          >
+            <h2
+              id="creator-heading"
+              className="flex w-full font-light text-lg text-slate-700/50 sr-only"
+            >
+              Creator
+            </h2>
+            <div className="grid grid-cols-2 gap-8 w-full">
+              <DataCard
+                label="First name"
+                value={member?.first_name}
+              />
+              <DataCard
+                label="Last name"
+                value={member?.last_name}
+              />
+              <DataCard
+                label="Email"
+                value={member?.email}
+              />
+            </div>
+          </section>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
