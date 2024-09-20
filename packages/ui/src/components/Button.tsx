@@ -5,6 +5,7 @@ interface ButtonProps {
   onClick: () => void;
   className?: string;
   ariaLabel?: string;
+  disabled?: boolean;
 }
 
 export function Button({
@@ -12,6 +13,7 @@ export function Button({
   onClick,
   className = "",
   ariaLabel = "",
+  disabled = false,
 }: ButtonProps): JSX.Element {
   return (
     <button
@@ -19,6 +21,7 @@ export function Button({
       className={`px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300  ${className}`}
       aria-pressed="false"
       role="button"
+      disabled={disabled}
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {

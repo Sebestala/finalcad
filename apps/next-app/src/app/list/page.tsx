@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@repo/ui/Button";
 import { Cell } from "@repo/ui/Cell";
 import { useEffect, useState } from "react";
 
@@ -19,8 +20,11 @@ interface TableData {
   due_date: string;
 }
 
+const ITEMS_PER_PAGE = 10;
+
 export default function ListPage(): JSX.Element {
   const [tableData, setTableData] = useState<TableData[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
@@ -53,6 +57,13 @@ export default function ListPage(): JSX.Element {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const pageCount = Math.ceil(tableData.length / ITEMS_PER_PAGE);
+  const paginatedData = tableData.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   return (
     <div className="flex flex-col m-8 p-4 gap-10 ">
       <div className="flex flex-col ">
@@ -82,7 +93,7 @@ export default function ListPage(): JSX.Element {
             />
           </div>
         </li>
-        {tableData.map((data) => (
+        {paginatedData.map((data) => (
           <RawData
             key={data.id}
             name={data.name}
@@ -92,6 +103,25 @@ export default function ListPage(): JSX.Element {
           />
         ))}
       </ul>
+      <div className="flex justify-center items-center mt-4 gap-4">
+        <Button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="bg-[#FF8029] hover:bg-[#FF8029] w-24 text-sm text-white disabled:bg-gray-300"
+        >
+          Previous
+        </Button>
+        <span>
+          Page {currentPage} / {pageCount}
+        </span>
+        <Button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, pageCount))}
+          disabled={currentPage === pageCount}
+          className="bg-[#FF8029] hover:bg-[#FF8029] w-24 text-sm text-white disabled:bg-gray-300"
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }
