@@ -21,7 +21,7 @@ export function TextInput({
       onChange={(e) => onChange(e.target.value)}
       aria-label={placeholder}
       aria-required="true"
-      className={`w-80 h-10 p-5 bg-[#F4F6F8] rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-300 placeholder:text-sm placeholder:text-[#848F9D]/60 text-black/70 ${className}`}
+      className={`max-w-80  h-10 p-5 bg-[#F4F6F8] rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-300 placeholder:text-sm placeholder:text-[#848F9D]/60 text-black/70 ${className}`}
     />
   );
 }
