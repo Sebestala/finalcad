@@ -10,9 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function ListLayout({ children }: { children: React.ReactNode }): JSX.Element {
-  return (
-    <html lang="en">
-      <body className={`${inter.className} relative`}>{children}</body>
-    </html>
-  );
+  return <div className={`${inter.className} relative`}>{children}</div>;
 }
